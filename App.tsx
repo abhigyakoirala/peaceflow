@@ -13,7 +13,6 @@ import {
   ActivityIndicator,
   BackHandler,
   AppState,
-  useWindowDimensions,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -48,6 +47,7 @@ import {
 import { loadData, saveData } from "./src/storage";
 import { posts, categories, women } from "./src/content";
 import DateField from "./src/DateField";
+import LearningCard from "./src/LearningCard";
 
 type Tab = "Home" | "Cycle" | "Learn" | "Journal" | "World";
 type Sheet =
@@ -115,7 +115,6 @@ function Peaceflow() {
     [selectedDay, setSelectedDay] = useState(today());
   const [now, setNow] = useState(today());
   const [hidden, setHidden] = useState(false);
-  const { fontScale } = useWindowDimensions();
   const feed = useRef<FlatList>(null);
   const saving = useRef(false);
   const refresh = () => {
@@ -260,7 +259,7 @@ function Peaceflow() {
         (_, i) => ({ post: filtered[i % filtered.length], index: i }),
       )
     : [];
-  const cardHeight = Math.max(feedHeight, 520 * fontScale);
+  const cardHeight = Math.max(1, feedHeight);
   const latest = [...data.periods].sort((x, y) =>
     y.start.localeCompare(x.start),
   );
@@ -378,26 +377,9 @@ function Peaceflow() {
         {tab === "Learn" ? (
           <View style={{ flex: 1 }}>
             <View style={a.feedHeader}>
-              <View style={s.row}>
-                <View>
-                  <Label>A LITTLE WISDOM, EVERY DAY</Label>
-                  <Heading>For your wellbeing.</Heading>
-                </View>
-                <IconButton
-                  name={savedOnly ? "bookmark" : "bookmark-outline"}
-                  label={savedOnly ? "Show all posts" : "Show saved posts"}
-                  onPress={() => {
-                    setSavedOnly(!savedOnly);
-                    setFeedCount(50);
-                    feed.current?.scrollToOffset({
-                      offset: 0,
-                      animated: false,
-                    });
-                  }}
-                />
-              </View>
               <ScrollView
                 horizontal
+                style={{ flex: 1, minWidth: 0 }}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ gap: 8, paddingVertical: 14 }}
               >
@@ -417,14 +399,33 @@ function Peaceflow() {
                   />
                 ))}
               </ScrollView>
+              <IconButton
+                name={savedOnly ? "bookmark" : "bookmark-outline"}
+                label={savedOnly ? "Show all posts" : "Show saved posts"}
+                onPress={() => {
+                  setSavedOnly(!savedOnly);
+                  setFeedCount(50);
+                }}
+              />
             </View>
             <View
               style={{ flex: 1 }}
+              testID="learning-viewport"
               onLayout={(e) => setFeedHeight(e.nativeEvent.layout.height)}
             >
               <FlatList
                 testID="learning-feed"
                 ref={feed}
+                key={`${category}-${savedOnly}-${cardHeight}`}
+                pagingEnabled
+                snapToInterval={cardHeight}
+                snapToAlignment="start"
+                disableIntervalMomentum
+                getItemLayout={(_, index) => ({
+                  length: cardHeight,
+                  offset: cardHeight * index,
+                  index,
+                })}
                 data={feedItems}
                 keyExtractor={(item) => `${item.post.id}-${item.index}`}
                 showsVerticalScrollIndicator={false}
@@ -445,96 +446,34 @@ function Peaceflow() {
                   </View>
                 }
                 renderItem={({ item: { post: p, index } }) => (
-                  <View
-                    style={{
-                      minHeight: cardHeight,
-                      paddingHorizontal: 20,
-                      paddingBottom: 14,
-                    }}
-                  >
-                    <View style={[a.reel, { backgroundColor: p.background }]}>
-                      <View style={s.row}>
-                        <Text style={[a.reelCategory, { color: p.accent }]}>
-                          {p.category.toUpperCase()}
-                        </Text>
-                        <Text style={[s.small, { color: p.accent }]}>
-                          {(index % filtered.length) + 1} / {filtered.length}
-                          {index >= filtered.length ? " · Revisit" : ""}
-                        </Text>
-                      </View>
-                      <View style={a.reelArt}>
-                        <Art motif={p.motif} color={p.accent} size={165} />
-                      </View>
-                      <View style={{ gap: 15 }}>
-                        <Text
-                          accessibilityRole="header"
-                          style={[a.reelTitle, { color: p.accent }]}
-                        >
-                          {p.title}
-                        </Text>
-                        <Text style={[a.reelBody, { color: p.accent }]}>
-                          {p.body}
-                        </Text>
-                      </View>
-                      <View style={{ flex: 1, minHeight: 20 }} />
-                      <View style={[s.row, { alignItems: "flex-end" }]}>
-                        <View style={{ flex: 1 }}>
-                          <Text style={[s.small, { color: p.accent }]}>
-                            peaceflow / learn
-                          </Text>
-                          <Pressable
-                            accessibilityRole="button"
-                            accessibilityLabel={
-                              p.url
-                                ? `Read source: ${p.source}`
-                                : "Open journal prompt"
-                            }
-                            onPress={() =>
-                              p.url
-                                ? external(p.url)
-                                : editEntry({
-                                    ...newEntry(),
-                                    body: p.body.replace(
-                                      "Journal prompt: ",
-                                      "",
-                                    ),
-                                  })
-                            }
-                            style={{ paddingVertical: 12 }}
-                          >
-                            <Text style={[a.source, { color: p.accent }]}>
-                              {p.source} ↗
-                            </Text>
-                          </Pressable>
-                        </View>
-                        <Pressable
-                          accessibilityRole="button"
-                          accessibilityLabel={
-                            data.saved.includes(p.id)
-                              ? "Unsave post"
-                              : "Save post"
+                  <LearningCard
+                    post={p}
+                    index={index}
+                    count={filtered.length}
+                    height={cardHeight}
+                    saved={data.saved.includes(p.id)}
+                    onSave={() => bookmark(p.id)}
+                    onOpen={() =>
+                      p.url
+                        ? external(p.url)
+                        : editEntry({
+                            ...newEntry(),
+                            body: p.body.replace("Journal prompt: ", ""),
+                          })
+                    }
+                    onNext={
+                      savedOnly && index === feedItems.length - 1
+                        ? undefined
+                        : () => {
+                            if (index + 1 >= feedItems.length)
+                              setFeedCount((n) => n + 50);
+                            feed.current?.scrollToOffset({
+                              offset: (index + 1) * cardHeight,
+                              animated: true,
+                            });
                           }
-                          onPress={() => bookmark(p.id)}
-                          style={a.saveButton}
-                        >
-                          <Icon
-                            name={
-                              data.saved.includes(p.id)
-                                ? "bookmark"
-                                : "bookmark-outline"
-                            }
-                            color={p.accent}
-                          />
-                        </Pressable>
-                      </View>
-                      <Text
-                        style={[s.small, { color: p.accent, opacity: 0.85 }]}
-                      >
-                        Swipe up for more · General education, not medical
-                        advice
-                      </Text>
-                    </View>
-                  </View>
+                    }
+                  />
                 )}
               />
             </View>
@@ -1596,7 +1535,12 @@ const a = StyleSheet.create({
   },
   navIcon: { paddingHorizontal: 16, paddingVertical: 4, borderRadius: 18 },
   navLabel: { fontSize: 10, color: C.muted },
-  feedHeader: { paddingHorizontal: 24, paddingTop: 22 },
+  feedHeader: {
+    paddingHorizontal: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
   reel: { flex: 1, borderRadius: 27, padding: 25, overflow: "hidden" },
   reelCategory: { fontSize: 11, fontWeight: "700", letterSpacing: 1.7 },
   reelArt: { alignItems: "center", paddingVertical: 3 },

@@ -1,4 +1,50 @@
 import { test, expect } from "@playwright/test";
+test("learning cards fill the viewport and page to the next lesson", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Let’s begin" }).click();
+  await expect(page.getByRole("button", { name: "Let’s begin" })).toBeHidden();
+  await page.getByRole("tab", { name: "Learn", exact: true }).click();
+  const viewport = page.getByTestId("learning-viewport");
+  const first = page.getByTestId("learning-card-0");
+  await expect
+    .poll(async () => {
+      const v = await viewport.boundingBox(),
+        card = await first.boundingBox();
+      return v && card ? Math.abs(v.height - card.height) : Infinity;
+    })
+    .toBeLessThan(2);
+  await first.getByRole("button", { name: "Next lesson" }).click();
+  await expect
+    .poll(async () => {
+      const v = await viewport.boundingBox(),
+        card = await page.getByTestId("learning-card-1").boundingBox();
+      return v && card ? Math.abs(v.y - card.y) : Infinity;
+    })
+    .toBeLessThan(2);
+  await page.screenshot({ path: "test-results/learn-paged-mobile.png" });
+  await page.setViewportSize({ width: 320, height: 568 });
+  await expect
+    .poll(async () => {
+      const v = await viewport.boundingBox(),
+        card = await first.boundingBox();
+      return v && card ? Math.abs(v.height - card.height) : Infinity;
+    })
+    .toBeLessThan(2);
+  await expect(
+    first.getByRole("button", { name: "Next lesson" }),
+  ).toBeInViewport();
+  await first.getByRole("button", { name: "Next lesson" }).click();
+  await expect
+    .poll(async () => {
+      const v = await viewport.boundingBox(),
+        card = await page.getByTestId("learning-card-1").boundingBox();
+      return v && card ? Math.abs(v.y - card.y) : Infinity;
+    })
+    .toBeLessThan(2);
+  await page.screenshot({ path: "test-results/learn-paged-small.png" });
+});
 test("learning topics filter and the finite library continues as labeled revisits", async ({
   page,
 }) => {
