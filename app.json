@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Peaceflow",
+    "slug": "peaceflow",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.peaceflow.mobile",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "app.peaceflow.mobile",
+      "allowBackup": false
+    },
+    "web": {
+      "bundler": "metro",
+      "name": "Peaceflow"
+    },
+    "plugins": [
+      [
+        "expo-sqlite",
+        {
+          "useSQLCipher": true
+        }
+      ],
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": false
+        }
+      ],
+      "./plugins/withPrivateStorage.js",
+      "@react-native-community/datetimepicker"
+    ]
+  }
+}

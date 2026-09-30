@@ -10,7 +10,7 @@ Native mobile application for both iOS and Android.
 
 ## Stack
 
-Undecided. This phase is product and UX planning only. Offer a stack choice or recommendation before implementation.
+Confirmed by the user: Expo / React Native with TypeScript. iOS and Android development builds, plus a browser preview.
 
 ## Users
 
@@ -23,12 +23,12 @@ Peaceflow brings period tracking, women's health education, private journaling, 
 ## Capabilities and Constraints
 
 - Smart Period Tracker.
-- Women's Health Education Hub.
+- Women's Health Education Hub: an Instagram/Reels-inspired continuous feed with 50 original short posts, topic filters, bookmarks, and source links. Posts repeat after the finite collection and are labeled as revisits.
 - Private Journal.
-- Women Around the World: curated stories and experiences for the first release.
+- Women Around the World: five influential women with researched profiles and source links: Malala Yousafzai, Wangari Maathai, Katherine Johnson, Tu Youyou, and Marie Curie.
 - Personal records are device-only, with no account. No account-based backup or synchronization.
 - A bottom navigation bar inspired by the supplied reference, plus a hamburger menu.
-- Plan first; implementation has not been requested yet.
+- Implementation authorized after the planning conversation. Track work in Git.
 
 ## Brand Commitments
 
@@ -39,7 +39,7 @@ Peaceflow brings period tracking, women's health education, private journaling, 
 
 ## Evidence on Hand
 
-The conversation includes a logo screenshot and a bottom-navigation reference screenshot. No original logo asset, reviewed educational articles, or licensed/consented stories have been supplied.
+The conversation includes a logo screenshot and a bottom-navigation reference screenshot. The temporary logo file is no longer available in the filesystem; the implementation uses the Peaceflow wordmark and pink identity pending an original logo asset. Educational summaries link to NHS, WHO, CDC, and FDA. Influential-women summaries link to Nobel Prize and NASA. No independent clinical review has been completed. Profiles use decorative initials, not unlicensed photographs.
 
 ## Product Principles
 
@@ -55,10 +55,9 @@ Design for teenagers and adults with different levels of technical confidence. P
 ## Open Decisions
 
 - Exact minimum age, initial launch countries, and languages.
-- Framework and supported operating-system versions.
-- Source, editorial ownership, and professional review of educational content.
-- Source and publication permission for curated stories.
-- Distribution and offline availability of editorial content.
+- Minimum supported operating-system versions and real-device verification before release.
+- Professional review and ongoing editorial ownership of educational content.
+- Editorial content currently ships with the application and is available offline; updates ship through app releases.
 - Manual export/transfer: not yet approved; no cloud backup planned.
-- Platform backup and device-transfer behavior must be explicitly designed and verified to uphold device-only storage.
-- Detailed prediction method and appropriate presentation of uncertainty.
+- Native encrypted storage and backup/transfer exclusions are implemented; real-device verification remains a release requirement. Browser preview uses unencrypted localStorage and explicitly asks for sample information only.
+- Prediction uses the median of up to six recent start-to-start intervals after three recorded periods, displays the observed interval range, and suppresses estimates when intervals fall outside a conservative 15–90 day algorithm guardrail. This is not a clinical definition of normal. Never rolls a missed period forward or predicts ovulation.
