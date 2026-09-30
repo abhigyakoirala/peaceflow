@@ -638,30 +638,6 @@ function Peaceflow() {
                   <Heading>My cycle</Heading>
                   <Body>Every body has its own pattern.</Body>
                 </View>
-                {summary}
-                <Card>
-                  <View style={s.row}>
-                    <Text style={s.sectionTitle}>Your personal estimate</Text>
-                    <Icon name="sparkles-outline" color={C.pink} />
-                  </View>
-                  {estimate.next && (
-                    <Text style={a.estimateDate}>
-                      {formatDate(estimate.next)}
-                    </Text>
-                  )}
-                  <Body>{estimate.reason}</Body>
-                  {estimate.range && (
-                    <Body style={{ fontSize: 13 }}>
-                      History-based window: {formatDate(estimate.range[0])} –{" "}
-                      {formatDate(estimate.range[1])}
-                    </Body>
-                  )}
-                  <Text style={s.small}>
-                    A calendar estimate, not a diagnosis or a way to prevent
-                    pregnancy. Irregular cycles and life changes can make
-                    estimates less reliable.
-                  </Text>
-                </Card>
                 <Card>
                   <View style={s.row}>
                     <IconButton
@@ -765,6 +741,30 @@ function Peaceflow() {
                       {recordForDay ? "Edit this period" : "Log this date"}
                     </Button>
                   )}
+                </Card>
+                {summary}
+                <Card>
+                  <View style={s.row}>
+                    <Text style={s.sectionTitle}>Your personal estimate</Text>
+                    <Icon name="sparkles-outline" color={C.pink} />
+                  </View>
+                  {estimate.next && (
+                    <Text style={a.estimateDate}>
+                      {formatDate(estimate.next)}
+                    </Text>
+                  )}
+                  <Body>{estimate.reason}</Body>
+                  {estimate.range && (
+                    <Body style={{ fontSize: 13 }}>
+                      History-based window: {formatDate(estimate.range[0])} –{" "}
+                      {formatDate(estimate.range[1])}
+                    </Body>
+                  )}
+                  <Text style={s.small}>
+                    A calendar estimate, not a diagnosis or a way to prevent
+                    pregnancy. Irregular cycles and life changes can make
+                    estimates less reliable.
+                  </Text>
                 </Card>
                 <Text style={s.sectionTitle}>Period history</Text>
                 {latest.length
