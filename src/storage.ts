@@ -31,7 +31,7 @@ function database() {
       if (!cipher) {
         await db.closeAsync();
         throw new Error(
-          "Encrypted storage requires a Peaceflow development build. Expo Go is not supported.",
+          "Encrypted storage requires a Paceflow development build. Expo Go is not supported.",
         );
       }
       await db.execAsync(

@@ -81,7 +81,7 @@ export default function LearningCard({
             <Text style={[styles.body, ink]}>{post.body}</Text>
           </View>
           <View style={{ flexGrow: 1, minHeight: 12 }} />
-          <Text style={[s.small, ink]}>peaceflow / learn</Text>
+          <Text style={[s.small, ink]}>paceflow / learn</Text>
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={

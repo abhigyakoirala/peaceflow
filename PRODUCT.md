@@ -18,7 +18,7 @@ Teenagers and adults, including people unfamiliar with technology. The interface
 
 ## Product Purpose
 
-Peaceflow brings period tracking, women's health education, private journaling, and curated experiences from women worldwide into one accessible mobile application.
+Paceflow brings period tracking, women's health education, private journaling, and curated experiences from women worldwide into one accessible mobile application.
 
 ## Capabilities and Constraints
 
@@ -32,14 +32,14 @@ Peaceflow brings period tracking, women's health education, private journaling, 
 
 ## Brand Commitments
 
-- Name: Peaceflow; supplied logo uses lowercase lettering.
+- Name: paceflow (corrected by the user on October 2, 2026); supplied wordmark uses lowercase lettering.
 - Tagline transcribed from the supplied logo: “your cycle. your power. your pace.”
 - Use the supplied logo's pink as the primary brand color.
 - Preserve a simple, approachable experience.
 
 ## Evidence on Hand
 
-The conversation includes a logo screenshot and a bottom-navigation reference screenshot. The temporary logo file is no longer available in the filesystem; the implementation uses the Peaceflow wordmark and pink identity pending an original logo asset. Educational summaries link to NHS, WHO, CDC, and FDA. Influential-women summaries link to Nobel Prize and NASA. No independent clinical review has been completed. Profiles use decorative initials, not unlicensed photographs.
+The user supplied a replacement logo and corrected wordmark on October 2, 2026. The cleaned logo is stored in `assets/paceflow-icon.png` with an opaque pale-pink background replacing the original black corners. The logo is used in the native icon, favicon, header and welcome screen. Preserve the existing native identifiers, Expo slug, repository URL and local-storage keys so branding changes do not disconnect installed users from their records. Educational summaries link to NHS, WHO, CDC, and FDA. Influential-women summaries link to Nobel Prize and NASA. No independent clinical review has been completed. Profiles use decorative initials, not unlicensed photographs.
 
 ## Product Principles
 

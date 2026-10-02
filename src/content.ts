@@ -288,7 +288,7 @@ const groups: Group[] = [
   },
   {
     category: "Reflection",
-    source: "Peaceflow · Journal prompts",
+    source: "Paceflow · Journal prompts",
     url: "",
     accent: "#715C4F",
     background: "#F2E9E0",

@@ -1,4 +1,4 @@
-# Peaceflow
+# Paceflow
 
 An Expo / React Native application for iOS and Android, with a browser preview. No account, backend, advertising SDK, analytics SDK, or cloud sync.
 
@@ -11,9 +11,9 @@ npm run web
 
 Open http://localhost:8081. The browser preview uses **unencrypted localStorage**. Use sample information only. Native storage has a separate implementation.
 
-## Install Peaceflow on your iPhone
+## Install Paceflow on your iPhone
 
-**Install a custom Peaceflow build, not Expo Go.** This project uses SQLCipher, which needs native configuration. Expo Go cannot run its encrypted storage. There is no App Store download or prebuilt iPhone installer in this repository yet.
+**Install a custom Paceflow build, not Expo Go.** This project uses SQLCipher, which needs native configuration. Expo Go cannot run its encrypted storage. There is no App Store download or prebuilt iPhone installer in this repository yet.
 
 Choose one route:
 
@@ -22,7 +22,7 @@ Choose one route:
 | A: build on your Mac | Mac, full Xcode, iPhone, cable, Apple Account | Personal testing; a free Personal Team can be used |
 | B: Expo cloud build | Computer, Expo account, paid Apple Developer membership, registered iPhone | Installing through a build link; no local Xcode required |
 
-These accounts are developer tools only. Peaceflow itself has no user account. Apple permits personal-device testing with a free account, but its Personal Team provisioning expires after seven days, requiring another build/install. See [Apple’s membership comparison](https://developer.apple.com/support/compare-memberships/).
+These accounts are developer tools only. Paceflow itself has no user account. Apple permits personal-device testing with a free account, but its Personal Team provisioning expires after seven days, requiring another build/install. See [Apple’s membership comparison](https://developer.apple.com/support/compare-memberships/).
 
 ### A. Build and install from a Mac
 
@@ -84,14 +84,14 @@ Select your physical iPhone when prompted. Expo generates `ios/`, installs nativ
 **If signing fails:**
 
 1. If the native project has not been generated, run `npx expo prebuild --platform ios`.
-2. Open `ios/Peaceflow.xcworkspace` in Xcode, **not** the `.xcodeproj` file.
-3. Select the **Peaceflow** project, then its app target, then **Signing & Capabilities**. Enable **Automatically manage signing** and choose your team.
+2. Open `ios/paceflow.xcworkspace` in Xcode, **not** the `.xcodeproj` file.
+3. Select the **paceflow** project, then its app target, then **Signing & Capabilities**. Enable **Automatically manage signing** and choose your team.
 4. If `app.peaceflow.mobile` cannot be registered to your team, change `expo.ios.bundleIdentifier` in `app.json` to an identifier you control, such as `com.yourname.peaceflow`. Regenerate with `npx expo prebuild --platform ios`, reopen the workspace and select your team again. Choose the identifier before entering real records; changing it creates a separate app.
 5. Choose the connected iPhone as the run destination and press **Run ▶** in Xcode, or retry `npm run ios -- --device`.
 
 These signing steps follow [Expo’s Xcode signing guide](https://github.com/expo/fyi/blob/main/setup-xcode-signing.md). Generated native directories are ignored by Git; preserve durable settings in `app.json` and the config plugins. Local Xcode-only settings may need to be reapplied after regeneration.
 
-If iOS shows **Untrusted Developer**, open **Settings → General → VPN & Device Management**, select your developer identity and trust it, then reopen Peaceflow.
+If iOS shows **Untrusted Developer**, open **Settings → General → VPN & Device Management**, select your developer identity and trust it, then reopen Paceflow.
 
 #### 5. Open the development app
 
@@ -101,7 +101,7 @@ The installation command normally starts Metro, the development server. If it is
 npm start -- --lan
 ```
 
-Keep Terminal running. Put the Mac and iPhone on the same Wi-Fi network and allow Peaceflow's Local Network permission if requested. Open the installed **Peaceflow** app and select the server, or scan Metro's QR code using the iPhone Camera. Open the link in the Peaceflow development build, not Expo Go. `localhost:8081` on the phone refers to the phone, not your Mac.
+Keep Terminal running. Put the Mac and iPhone on the same Wi-Fi network and allow Paceflow's Local Network permission if requested. Open the installed **Paceflow** app and select the server, or scan Metro's QR code using the iPhone Camera. Open the link in the Paceflow development build, not Expo Go. `localhost:8081` on the phone refers to the phone, not your Mac.
 
 If the network blocks device-to-computer connections, try:
 
@@ -109,7 +109,7 @@ If the network blocks device-to-computer connections, try:
 npm start -- --tunnel
 ```
 
-Accept the tunnel dependency prompt if needed. A tunnel uses an external service to serve the development bundle; it does not add record sync to Peaceflow. LAN is preferable when available. See [Expo’s development connection guidance](https://docs.expo.dev/get-started/start-developing/).
+Accept the tunnel dependency prompt if needed. A tunnel uses an external service to serve the development bundle; it does not add record sync to Paceflow. LAN is preferable when available. See [Expo’s development connection guidance](https://docs.expo.dev/get-started/start-developing/).
 
 #### 6. Install a build that runs without your Mac
 
@@ -119,7 +119,7 @@ For a self-contained local Release build with JavaScript bundled inside:
 npm run ios -- --device --configuration Release
 ```
 
-Select the iPhone again. After a successful installation, open Peaceflow from its icon without Metro. This is still a personally signed installation, not an App Store release, and your provisioning expiry still applies. The command is supported by [Expo CLI’s local build options](https://docs.expo.dev/more/expo-cli/).
+Select the iPhone again. After a successful installation, open Paceflow from its icon without Metro. This is still a personally signed installation, not an App Store release, and your provisioning expiry still applies. The command is supported by [Expo CLI’s local build options](https://docs.expo.dev/more/expo-cli/).
 
 #### 7. Verify and update
 
@@ -177,7 +177,7 @@ Install from the returned link, enable Developer Mode if prompted, and connect t
 | Missing development team or provisioning profile | Select your Apple Account/team and automatic signing in Xcode; ensure the bundle identifier belongs to your team. |
 | App stops opening after about a week | Free Personal Team provisioning may have expired. Rebuild/install with the same identifier; avoid uninstalling first. |
 | Cannot connect to Metro | Keep the server running, use the same Wi-Fi, permit Local Network access, check firewall/VPN settings or try the tunnel option. |
-| Encrypted-storage / Expo Go error | Open the custom Peaceflow build. Rebuild after native/plugin changes. Expo Go does not include this SQLCipher configuration. |
+| Encrypted-storage / Expo Go error | Open the custom Paceflow build. Rebuild after native/plugin changes. Expo Go does not include this SQLCipher configuration. |
 | CocoaPods missing | Install CocoaPods, check `pod --version`, and retry the build. |
 | Build fails with `ENOSPC` | Free disk space on the Mac, then retry; Xcode and native builds need substantial storage. |
 
@@ -229,7 +229,9 @@ The browser workflows and build are verified locally. Native prebuild is verifie
 
 Every health post links to its source in the app (NHS, WHO, CDC or FDA), except the five original journal prompts. Profiles link to Nobel Prize or NASA. Source links and original summaries are in `src/content.ts`; facts were researched on September 30, 2026. Educational content still needs independent clinical review before a public health-app release.
 
-The original logo screenshot is no longer available at its temporary attachment path. The app uses a pink Peaceflow wordmark; supply the original artwork before final app icons and store assets are prepared. There are no synthetic endorsements, public profiles, user-posted stories or stock photos attributed to the featured women.
+The app is branded **paceflow**. Its supplied logo has been cleaned to remove the black outer background and is stored in `assets/paceflow-icon.png`. It is used for the native app icon, browser favicon, header and welcome screen. Asset provenance and the editing prompt are in `assets/README.md`. There are no synthetic endorsements, public profiles, user-posted stories or stock photos attributed to the featured women.
+
+The GitHub repository URL, Expo slug, native identifiers (`app.peaceflow.mobile`), and existing local-storage names intentionally retain their original spelling for compatibility with installed apps and existing records. Do not rename storage keys or native identifiers as part of a display-name change. Rebuild and install over the existing app to update its home-screen name and icon; a Metro reload alone only updates the in-app branding.
 
 Notifications, biometric app lock, dark appearance, manual transfer/export, translations and store submission are outside this implemented slice. Confirm launch regions and minimum age before distribution.
 

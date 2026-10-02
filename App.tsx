@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
+  Image,
   ScrollView,
   Pressable,
   StyleSheet,
@@ -87,11 +88,11 @@ const newEntry = (): Entry => ({
 export default function App() {
   return (
     <SafeAreaProvider>
-      <Peaceflow />
+      <Paceflow />
     </SafeAreaProvider>
   );
 }
-function Peaceflow() {
+function Paceflow() {
   const [data, setData] = useState<Data | null>(null),
     [loadingError, setLoadingError] = useState("");
   const [tab, setTab] = useState<Tab>("Home"),
@@ -228,14 +229,14 @@ function Peaceflow() {
   if (hidden)
     return (
       <View style={a.loading}>
-        <Text style={a.wordmark}>peaceflow</Text>
+        <Text style={a.wordmark}>paceflow</Text>
         <Icon name="lock-closed-outline" color={C.pink} />
       </View>
     );
   if (!data)
     return (
       <SafeAreaView style={a.loading}>
-        <Text style={a.wordmark}>peaceflow</Text>
+        <Text style={a.wordmark}>paceflow</Text>
         {loadingError ? (
           <>
             <Heading>Your records are protected.</Heading>
@@ -366,12 +367,16 @@ function Peaceflow() {
           />
           <View style={{ alignItems: "center" }}>
             <Text style={a.wordmark}>
-              peaceflow<Text style={{ fontSize: 15 }}> ♥</Text>
+              paceflow<Text style={{ fontSize: 15 }}> ♥</Text>
             </Text>
             <Text style={a.tagline}>your cycle. your power. your pace.</Text>
           </View>
           <View style={a.brandFlower}>
-            <Icon name="flower-outline" size={25} color={C.pink} />
+            <Image
+              source={require("./assets/paceflow-icon.png")}
+              accessibilityLabel="paceflow logo"
+              style={{ width: 44, height: 44, borderRadius: 22 }}
+            />
           </View>
         </View>
         {tab === "Learn" ? (
@@ -911,8 +916,12 @@ function Peaceflow() {
           <View style={a.modalBackdrop}>
             <View style={a.welcome}>
               <ScrollView contentContainerStyle={{ gap: 18 }}>
-                <Art motif="leaf" size={95} />
-                <Text style={[a.wordmark, { fontSize: 45 }]}>peaceflow</Text>
+                <Image
+                  source={require("./assets/paceflow-icon.png")}
+                  accessibilityLabel="paceflow logo"
+                  style={{ width: 108, height: 108, borderRadius: 24 }}
+                />
+                <Text style={[a.wordmark, { fontSize: 45 }]}>paceflow</Text>
                 <Text style={a.tagline}>
                   your cycle. your power. your pace.
                 </Text>
@@ -967,12 +976,12 @@ function Peaceflow() {
                     : sheet === "entry"
                       ? "Your private reflection"
                       : sheet === "menu"
-                        ? "Your Peaceflow"
+                        ? "Your Paceflow"
                         : sheet === "privacy"
                           ? "Privacy & your data"
                           : sheet === "delete-all"
                             ? "Delete all personal data"
-                            : "About Peaceflow"}
+                            : "About Paceflow"}
                 </Text>
                 <IconButton
                   name="close"
@@ -1277,8 +1286,8 @@ function Peaceflow() {
                   <>
                     <Heading>A little care, every day.</Heading>
                     <Body>
-                      Peaceflow brings your cycle, thoughts and learning into
-                      one quiet space. Version 1.0.
+                      Paceflow brings your cycle, thoughts and learning into one
+                      quiet space. Version 1.0.
                     </Body>
                     <Text style={s.sectionTitle}>Using the tracker</Text>
                     <Body>
@@ -1400,7 +1409,7 @@ function Peaceflow() {
         </Modal>
         {hidden && (
           <View style={a.privacyCover}>
-            <Text style={a.wordmark}>peaceflow</Text>
+            <Text style={a.wordmark}>paceflow</Text>
             <Icon name="lock-closed-outline" color={C.pink} />
           </View>
         )}
